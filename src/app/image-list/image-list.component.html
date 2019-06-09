@@ -1,0 +1,25 @@
+<div class="search-container">
+   <!--(keyup)="searchImages(searchQuery)" -->
+   <input ng-model-options="{ debounce: 2000 }" class="input" [(ngModel)]="searchQuery" placeholder="Search for images">
+   <button class="btn btn-primary" type="button" (click)="searchImages(searchQuery)">Find Image</button>
+</div>
+
+
+<ngx-loading [show]="searching" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+<p *ngIf="blanksearch" class="Text ErrorText">Please enter image name</p>
+<p *ngIf="imagesFound" class="Text ErrorText">No images found for searched criteria...</p>
+<div class="container-fluid">
+   <div class="clearfix"></div>
+   <div class="row">
+      <div *ngFor="let image of images" class="col-md-4 gridcol">
+         <div class="image_container view overlay zoom">
+            <a href="{{ image.pageURL}}" target="_blank">
+               <img src="{{ image.webformatURL}}" class="image img-fluid" /></a>
+            <div class="image_footer">
+               <span  class="tag badge badge-primary badge-pills" (click)="searchtag(tag)"  *ngFor="let tag of image.tags.split(', ')">{{tag}}</span>
+            </div>
+         </div>
+
+      </div>
+   </div>
+</div>
